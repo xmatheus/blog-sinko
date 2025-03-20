@@ -7,7 +7,25 @@ interface PostHeaderProps {
 }
 
 export function PostHeader({ post }: PostHeaderProps) {
-    const readingTime = Math.ceil(post.content?.split(' ').length / 200) || 0; // Estimativa de 200 palavras por minuto
+    const calculateTotalWords = () => {
+        let totalWords = 0;
+
+        if (post.content) {
+            totalWords += post.content.split(' ').length;
+        }
+
+        if (post.blocks) {
+            post.blocks.forEach((block) => {
+                if (block.__component === 'shared.rich-text' && block.body) {
+                    totalWords += block.body.split(' ').length;
+                }
+            });
+        }
+
+        return totalWords;
+    };
+
+    const readingTime = Math.ceil(calculateTotalWords() / 200) || 0; // Estimativa de 200 palavras por minuto
 
     return (
         <header className='mb-[28px] flex w-full max-w-[745px] flex-col gap-6 self-start'>

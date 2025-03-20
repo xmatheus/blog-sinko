@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 
+import { getAllPages } from '@/cms/strapi/config';
 import { getStrapiURL } from '@/utils/get-strapi-url';
 
 async function getPosts() {
@@ -17,12 +18,13 @@ async function getPosts() {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const posts = await getPosts();
-    const baseUrl = 'https://seu-dominio.com';
+    const posts = await getAllPages();
+
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || '';
 
     const postUrls = posts.map((post: any) => ({
-        url: `${baseUrl}/postagens/${post.attributes.slug}`,
-        lastModified: new Date(post.attributes.updatedAt),
+        url: `${baseUrl}/postagens/${post.slug}`,
+        lastModified: new Date(post.updatedAt),
         changeFrequency: 'weekly' as const,
         priority: 0.8
     }));

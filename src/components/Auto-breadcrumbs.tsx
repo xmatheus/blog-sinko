@@ -20,7 +20,6 @@ const AutoBreadcrumbs: React.FC<autoBreadcrumbsProps> = async (props) => {
     const { customStyles, published, author } = props;
     const heads = await headers();
     const pathname = heads.get('x-pathname');
-    console.log({ pathname: pathname });
 
     let breadCrumbLink = '';
     const links = pathname?.split('/').map((i) => {

@@ -17,7 +17,6 @@ export function middleware(request: NextRequest) {
 
     const requestHeaders = new Headers(request.headers);
 
-    console.log({ server: pathname });
     requestHeaders.set('x-pathname', pathname);
     requestHeaders.set('x-url', request.url);
 

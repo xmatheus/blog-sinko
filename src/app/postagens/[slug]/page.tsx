@@ -10,6 +10,7 @@ import { BlockRenderer } from '@/components/BlockRenderer';
 import { FontSizeControl } from '@/components/FontSizeControl';
 import { Grid } from '@/components/Grid';
 import { PostHeader } from '@/components/PostHeader';
+import { ArticleStructuredData } from '@/components/SEO/MetaTags';
 import { TableOfContents } from '@/components/TableOfContents';
 import { getStrapiURL } from '@/utils/get-strapi-url';
 
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const post = data[0];
     const imageUrl = post.bannerImage?.img?.url
         ? `${getStrapiURL()}${post.bannerImage.img.url}`
-        : 'https://seu-dominio.com/og-image.jpg';
+        : 'https://dominio.com/og-image.jpg';
 
     return {
         title: post.title,
@@ -88,7 +89,16 @@ export default async function DynamicPageRoute({ params }: PageProps) {
     return (
         <>
             <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-
+            <ArticleStructuredData
+                article={{
+                    title: post.title,
+                    ogImage: post.bannerImage?.img?.url,
+                    publishedTime: post.publishedAt,
+                    modifiedTime: post.updatedAt,
+                    authors: [post.author?.name || ''],
+                    tags: post.tags?.map((tag) => tag.title) || []
+                }}
+            />
             <Grid>
                 <article className='container flex w-full flex-col gap-8 lg:max-w-[745px]'>
                     <AutoBreadcrumbs />

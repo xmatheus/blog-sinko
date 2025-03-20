@@ -7,9 +7,10 @@ import { Block } from './types';
 
 interface BlockRendererProps {
     blocks: Block[];
+    slug: string;
 }
 
-export function BlockRenderer({ blocks }: BlockRendererProps) {
+export function BlockRenderer({ blocks, slug }: BlockRendererProps) {
     return (
         <div className='flex flex-col'>
             {blocks.map((block) => {
@@ -19,12 +20,7 @@ export function BlockRenderer({ blocks }: BlockRendererProps) {
                     case 'shared.banner':
                         return <BannerImage src={block.img.url} alt={block.img.alt} key={block.id} className='mt-8' />;
                     case 'shared.related-article':
-                        return (
-                            <RelatedArticlesServer
-                                slug={'como-acessar-e-recuperar-a-senha-do-portal-do-consignado'}
-                                key={block.id}
-                            />
-                        );
+                        return <RelatedArticlesServer slug={slug} key={block.id} />;
                     default:
                         return null;
                 }

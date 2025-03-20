@@ -34,40 +34,17 @@ export const NewsCard = ({ article }: NewsCardProps) => {
                 className='group relative h-full w-full'
                 title={article.title}
                 aria-label={`Ler notícia: ${article.title}`}>
-                <meta itemProp='datePublished' content={new Date(article.publishedAt).toISOString()} />
-                <meta itemProp='dateModified' content={new Date(article.updatedAt).toISOString()} />
-                <meta itemProp='headline' content={article.title} />
-                <meta itemProp='description' content={article.description} />
-                <meta itemProp='mainEntityOfPage' content={`/postagens/${article.slug}`} />
-                <meta itemProp='articleSection' content={article.category?.name} />
-
-                <div itemProp='publisher' itemScope itemType='https://schema.org/Organization'>
-                    <meta itemProp='name' content='Sinko' />
-                    <meta itemProp='url' content='https://sinko.com.br' />
-                </div>
-
-                <div itemProp='author' itemScope itemType='https://schema.org/Person'>
-                    <meta itemProp='name' content={article.author?.name} />
-                </div>
-
-                <figure
-                    className='relative h-full w-full'
-                    itemProp='image'
-                    itemScope
-                    itemType='https://schema.org/ImageObject'>
+                <figure className='relative h-full w-full' itemType='https://schema.org/ImageObject'>
                     <Image
-                        src={getStrapiImageUrl(article.bannerImage.img.url)}
-                        alt={article.bannerImage.alt}
+                        src={getStrapiImageUrl(article.bannerImage?.img?.url || '')}
+                        alt={article.bannerImage?.alt || ''}
                         loading='lazy'
                         fill
                         sizes='(min-width: 1280px) 732px, 342px'
                         className='object-cover transition-transform duration-300 group-hover:scale-110'
-                        itemProp='url'
                     />
-                    <meta itemProp='width' content='732' />
-                    <meta itemProp='height' content='465' />
                     <figcaption className='sr-only' itemProp='caption'>
-                        {article.bannerImage.alt}
+                        {article.bannerImage?.alt}
                     </figcaption>
                 </figure>
 

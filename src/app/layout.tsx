@@ -11,8 +11,41 @@ import { Header } from '@/components/Header';
 import '@/styles/font-size.css';
 
 export const metadata: Metadata = {
-    title: 'Next.js 15 Starter',
-    description: 'Next.js 15 Starter'
+    title: {
+        default: 'Seu Site - Título Padrão',
+        template: '%s | Seu Site'
+    },
+    description: 'Descrição padrão do seu site',
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://seu-dominio.com'),
+    openGraph: {
+        type: 'website',
+        locale: 'pt_BR',
+        siteName: 'Seu Site',
+        images: [
+            {
+                url: '/og-image.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Seu Site'
+            }
+        ]
+    },
+    twitter: {
+        card: 'summary_large_image',
+        site: '@seusite',
+        creator: '@seusite'
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1
+        }
+    }
 };
 
 const poppins = localFont({
@@ -44,9 +77,9 @@ const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {
     return (
         <html suppressHydrationWarning lang='pt-br'>
             <body className={`${poppins.className} bg-background text-foreground antialiased`}>
-                <ThemeProvider attribute='class'>
+                <ThemeProvider attribute='class' enableSystem>
                     <Header />
-                    {children}
+                    <main className='min-h-screen'>{children}</main>
                     <Footer />
                 </ThemeProvider>
             </body>
