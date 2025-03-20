@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getContentBySlug, getPageBySlug } from '@/cms/strapi/config';
+import { getPageBySlug } from '@/cms/strapi/config';
 import { NewArticle } from '@/cms/strapi/types';
 import { ArticleTags } from '@/components/ArticleTags';
 import AutoBreadcrumbs from '@/components/Auto-breadcrumbs';
@@ -84,7 +84,7 @@ export default async function DynamicPageRoute({ params }: PageProps) {
         }
     };
 
-    const currentUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/postagens/${slug}`;
+    const currentUrl = `${process.env.NEXT_PUBLIC_URL}/postagens/${slug}`;
 
     return (
         <>
@@ -107,7 +107,7 @@ export default async function DynamicPageRoute({ params }: PageProps) {
                     <FontSizeControl title={post.title} url={currentUrl} />
                     <TableOfContents content={post.blocks || []} />
                     <div className='article-content'>
-                        <BlockRenderer blocks={post.blocks || []} />
+                        <BlockRenderer blocks={post.blocks || []} slug={slug} />
                     </div>
                     <ArticleTags post={post} />
                 </article>

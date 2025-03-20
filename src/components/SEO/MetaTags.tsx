@@ -17,7 +17,7 @@ interface MetaTagsProps {
 }
 
 export const generateMetadata = ({ title, description, canonical, ogImage, article }: MetaTagsProps): Metadata => {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://seu-dominio.com';
+    const siteUrl = process.env.NEXT_PUBLIC_URL || 'https://seu-dominio.com';
     const defaultImage = `${siteUrl}/og-image.jpg`;
 
     return {

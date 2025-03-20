@@ -20,7 +20,7 @@ async function getPosts() {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const posts = await getAllPages();
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || '';
+    const baseUrl = process.env.NEXT_PUBLIC_URL || '';
 
     const postUrls = posts.map((post: any) => ({
         url: `${baseUrl}/postagens/${post.slug}`,

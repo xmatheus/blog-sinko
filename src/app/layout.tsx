@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         template: '%s | Seu Site'
     },
     description: 'Descrição padrão do seu site',
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://seu-dominio.com'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://seu-dominio.com'),
     openGraph: {
         type: 'website',
         locale: 'pt_BR',
