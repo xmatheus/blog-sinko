@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     openGraph: {
         type: 'website',
         locale: 'pt_BR',
-        url: 'https://seu-dominio.com',
+        url: process.env.NEXT_PUBLIC_URL,
         siteName: 'Blog',
         images: [
             {
-                url: 'https://seu-dominio.com/og-image.jpg',
+                url: process.env.NEXT_PUBLIC_URL + '/og-image.jpg',
                 width: 1200,
                 height: 630,
                 alt: 'Blog'
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Blog',
         description: 'Blog com as últimas notícias e artigos',
-        images: ['https://seu-dominio.com/og-image.jpg']
+        images: [process.env.NEXT_PUBLIC_URL + '/og-image.jpg']
     },
     robots: {
         index: true,

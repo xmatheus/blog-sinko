@@ -1,6 +1,10 @@
 # Blog Sinko
 
-Este é um blog moderno desenvolvido com Next.js 15, utilizando Strapi como CMS (Content Management System) e uma interface elegante construída com Tailwind CSS e shadcn/ui.
+Este é um blog desenvolvido com Next.js 15, utilizando Strapi como CMS (Content Management System) e uma interface construída com Tailwind CSS e um pouco de shadcn/ui.
+
+blog: https://blog-sinko.vercel.app/
+strapi: https://diplomatic-moonlight-0fa07877a9.strapiapp.com/
+
 
 ## 🚀 Tecnologias
 
@@ -81,18 +85,6 @@ docker build -t blog-sinko .
 docker run -p 3000:3000 blog-sinko
 ```
 
-## 🔧 Configuração do Editor
-
-O projeto inclui configurações para VSCode e EditorConfig para manter a consistência do código. Recomendamos instalar as extensões sugeridas no arquivo `.vscode/extensions.json`.
-
 ## 📜 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE.md](LICENSE.md) para mais detalhes.
-
-## 🤝 Contribuindo
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
