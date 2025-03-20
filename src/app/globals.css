@@ -14,7 +14,7 @@
     --popover-foreground: #141514;
     --primary: #2e8896;
     --primary-foreground: #ffffff;
-    --secondary: #e4f4fa;
+    --secondary: #5e6772;
     --secondary-foreground: #141514;
     --muted: #e8e8e8;
     --muted-foreground: #5e6772;
@@ -194,6 +194,7 @@
 @layer base {
     * {
         @apply border-border outline-ring/50;
+        scroll-behavior: smooth;
     }
     body {
         @apply bg-background text-foreground;

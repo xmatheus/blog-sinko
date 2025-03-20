@@ -5,7 +5,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 import { Grid } from './Grid';
-import ThemeToggle from './ThemeSwitch';
 import { Menu, Search, X } from 'lucide-react';
 
 export function Header() {
@@ -61,7 +60,6 @@ export function Header() {
                         </Link>
                     </div>
 
-                    {/* Desktop Navigation */}
                     <nav className='hidden items-center gap-8 md:flex'>
                         <Link
                             href='/'
@@ -80,9 +78,7 @@ export function Header() {
                         </Link>
                     </nav>
 
-                    {/* Actions */}
                     <div className='hidden items-center gap-2 md:flex'>
-                        <ThemeToggle />
                         <button
                             className='bg-primary flex cursor-pointer items-center rounded-full px-4 py-2 transition-colors hover:opacity-80 dark:bg-gray-800 dark:hover:bg-gray-700'
                             aria-label='Buscar'>
@@ -91,9 +87,7 @@ export function Header() {
                         </button>
                     </div>
 
-                    {/* Mobile Menu Button */}
                     <div className='flex items-center gap-2 md:hidden'>
-                        <ThemeToggle />
                         <button
                             onClick={toggleMenu}
                             className='rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800'
@@ -107,25 +101,24 @@ export function Header() {
                     </div>
                 </div>
 
-                {/* Mobile Navigation */}
                 {isMenuOpen && (
                     <div className='md:hidden'>
                         <nav className='flex flex-col space-y-4 py-4'>
                             <Link
                                 href='/'
-                                className='px-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50'
+                                className='text-foreground px-2 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50'
                                 onClick={toggleMenu}>
                                 Home
                             </Link>
                             <Link
                                 href='/categorias'
-                                className='px-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50'
+                                className='text-foreground px-2 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50'
                                 onClick={toggleMenu}>
                                 Categorias
                             </Link>
                             <Link
                                 href='/noticias'
-                                className='px-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50'
+                                className='text-foreground px-2 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50'
                                 onClick={toggleMenu}>
                                 Notícias
                             </Link>

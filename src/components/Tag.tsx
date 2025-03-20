@@ -1,18 +1,22 @@
 import { ReactNode } from 'react';
 
-type TagVariant = 'default' | 'trending' | 'tags' | 'trendingTags';
+type TagVariant = 'default' | 'trending' | 'tags' | 'trendingTags' | 'article';
 
 interface TagProps {
     variant?: TagVariant;
     children?: ReactNode;
+    href?: string;
+    title?: string;
 }
 
 const tagStyles = {
     default: 'bg-[#F5F6FA] px-8 py-2 text-[20px] font-normal text-[#5E6772]',
     trending:
         'inline-flex items-center gap-1 rounded-[4px] bg-[#FFF3E0] px-4 py-2 text-[12px] font-normal text-[#FE6D01]',
-    tags: 'bg-secondary text-primary block w-fit rounded-[4px] px-4 py-2 text-[12px] font-normal',
-    trendingTags: 'bg-[#F5F6FA] text-primary hover:bg-[#F5F6FA]/80 px-4 py-2 rounded-[4px]'
+    tags: 'bg-sidebar-accent text-primary block w-fit rounded-[4px] px-4 py-2 text-[12px] font-normal',
+    trendingTags: 'bg-[#F5F6FA] text-primary hover:bg-[#F5F6FA]/80 px-4 py-2 rounded-[4px]',
+    article:
+        'bg-accent text-secondary hover:bg-secondary/80 flex w-fit items-center justify-center rounded-[4px] px-[12px] py-[8px] transition-colors'
 };
 
 const TrendingIcon = () => (
@@ -27,8 +31,16 @@ const TrendingIcon = () => (
     </svg>
 );
 
-export function Tag({ variant = 'default', children }: TagProps) {
+export function Tag({ variant = 'default', children, href, title }: TagProps) {
     const tagContent = variant === 'trending' ? 'em alta' : children;
+
+    if (variant === 'article' && href) {
+        return (
+            <a href={href} title={title} rel='tag' className={tagStyles[variant]}>
+                {tagContent}
+            </a>
+        );
+    }
 
     return (
         <div className={tagStyles[variant]}>

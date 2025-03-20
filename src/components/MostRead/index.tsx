@@ -68,7 +68,7 @@ const SmallArticleCard = ({ article }: { article: NewArticle }) => {
                             className='object-cover transition-transform duration-300 group-hover:scale-110'
                         />
                     )}
-                    <figcaption className='sr-only'>{article.bannerImage.alt}</figcaption>
+                    <figcaption className='sr-only'>{article.bannerImage?.alt}</figcaption>
                 </figure>
                 <div className='flex flex-col gap-2 py-3'>
                     <Tag variant='tags'>{article.tags?.[0]?.title}</Tag>
@@ -81,6 +81,8 @@ const SmallArticleCard = ({ article }: { article: NewArticle }) => {
         </article>
     );
 };
+
+export { SmallArticleCard };
 
 export default async function MostRead() {
     const mostReadArticles = await getMostRead();

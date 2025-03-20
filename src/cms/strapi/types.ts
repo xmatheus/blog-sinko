@@ -8,22 +8,14 @@ export interface BannerImage {
 
 export interface Author {
     id: number;
-    documentId: string;
     name: string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
+    slug: string;
 }
 
 export interface Category {
     id: number;
-    documentId: string;
     name: string;
     slug: string;
-    description: null | string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
 }
 
 export interface Tag {
@@ -44,19 +36,18 @@ export interface Seo {
 
 export interface NewArticle {
     id: number;
-    documentId: string;
     title: string;
     description: string;
-    createdAt: string;
-    updatedAt: string;
+    content: string;
     publishedAt: string;
+    updatedAt: string;
     slug: string;
-    category?: Category;
+    author?: Author;
     tags?: Tag[];
     seo?: Seo[];
+    category?: Category;
+    bannerImage?: BannerImage;
     blocks?: any[];
-    bannerImage: BannerImage;
-    author?: Author;
 }
 
 export interface TrendingsResponse {

@@ -6,8 +6,9 @@ import localFont from 'next/font/local';
 import { ThemeProvider } from 'next-themes';
 
 import '@/app/globals.css';
-import { Grid } from '@/components/Grid';
+import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import '@/styles/font-size.css';
 
 export const metadata: Metadata = {
     title: 'Next.js 15 Starter',
@@ -46,6 +47,7 @@ const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {
                 <ThemeProvider attribute='class'>
                     <Header />
                     {children}
+                    <Footer />
                 </ThemeProvider>
             </body>
         </html>

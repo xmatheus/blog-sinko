@@ -41,7 +41,7 @@ const ThemeSwitch: React.FC = () => {
 
     return (
         <div className='w-fit'>
-            <div className='flex w-auto flex-row justify-center overflow-hidden rounded-3xl border border-neutral-200 dark:border-neutral-700 sm:flex-row'>
+            <div className='flex w-auto flex-row justify-center overflow-hidden rounded-3xl border border-neutral-200 sm:flex-row dark:border-neutral-700'>
                 {SWITCH_DATA.map((data) => (
                     <button
                         key={data.value}
@@ -49,7 +49,6 @@ const ThemeSwitch: React.FC = () => {
                             theme === data.value && mounted ? 'bg-neutral-200 dark:bg-neutral-700' : 'bg-transparent'
                         } dark:hover:bg-neutral-800`}
                         onClick={() => {
-                            console.log('Theme:', data.value);
                             setTheme(data.value);
                         }}>
                         {data.iconSvg}
