@@ -25,7 +25,7 @@ const TrendingArticleCard = ({ article }: { article: NewArticle }) => {
                             className='object-cover pr-[12.5px] transition-transform duration-300 group-hover:scale-110'
                         />
                     )}
-                    <figcaption className='sr-only'>{article.bannerImage.alt}</figcaption>
+                    <figcaption className='sr-only'>{article.bannerImage?.alt || ''}</figcaption>
                 </figure>
                 <div className='flex flex-col justify-between'>
                     <div>

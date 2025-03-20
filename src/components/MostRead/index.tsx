@@ -27,7 +27,7 @@ const MainArticleCard = ({ article }: { article: NewArticle }) => {
                             fill
                             className='object-cover transition-transform duration-300 group-hover:scale-105'
                         />
-                        <figcaption className='sr-only'>{article.bannerImage.alt}</figcaption>
+                        <figcaption className='sr-only'>{article.bannerImage?.alt || ''}</figcaption>
                     </figure>
                 )}
                 <div

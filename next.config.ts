@@ -18,16 +18,10 @@ const nextConfig: NextConfig = {
             }
         ]
     },
-    experimental: {
-        optimizeCss: true,
-        optimizePackageImports: ['@/components', '@/lib']
-    },
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production'
     },
-    poweredByHeader: false,
-    reactStrictMode: true,
-    swcMinify: true
+    poweredByHeader: false
 };
 
 export default withBundleAnalyzer(nextConfig);
