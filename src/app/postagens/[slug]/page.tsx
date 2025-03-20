@@ -15,12 +15,12 @@ import { TableOfContents } from '@/components/TableOfContents';
 import { getStrapiURL } from '@/utils/get-strapi-url';
 
 interface PageProps {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const slug = (await params).slug;
-    const { data } = await getPageBySlug(slug);
+    const resolvedParams = await params;
+    const { data } = await getPageBySlug(resolvedParams.slug);
 
     if (data.length === 0) {
         return {
@@ -67,8 +67,8 @@ async function loader(slug: string): Promise<{ post: NewArticle }> {
 }
 
 export default async function DynamicPageRoute({ params }: PageProps) {
-    const slug = (await params).slug;
-    const { post } = await loader(slug);
+    const resolvedParams = await params;
+    const { post } = await loader(resolvedParams.slug);
 
     const jsonLd = {
         '@context': 'https://schema.org',
@@ -84,7 +84,7 @@ export default async function DynamicPageRoute({ params }: PageProps) {
         }
     };
 
-    const currentUrl = `${process.env.NEXT_PUBLIC_URL}/postagens/${slug}`;
+    const currentUrl = `${process.env.NEXT_PUBLIC_URL}/postagens/${resolvedParams.slug}`;
 
     return (
         <>
@@ -107,7 +107,7 @@ export default async function DynamicPageRoute({ params }: PageProps) {
                     <FontSizeControl title={post.title} url={currentUrl} />
                     <TableOfContents content={post.blocks || []} />
                     <div className='article-content'>
-                        <BlockRenderer blocks={post.blocks || []} slug={slug} />
+                        <BlockRenderer blocks={post.blocks || []} slug={resolvedParams.slug} />
                     </div>
                     <ArticleTags post={post} />
                 </article>
