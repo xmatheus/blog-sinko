@@ -41,7 +41,7 @@ export function PostHeader({ post }: PostHeaderProps) {
                 )}
             </div>
 
-            <h1 className='m-0 text-[40px] leading-[130%] font-bold tracking-[0.25px] xl:text-[2.5rem]'>
+            <h1 className='m-0 text-[24px] leading-[130%] font-bold tracking-[0.25px] xl:text-[2.5rem]'>
                 {post.title}
             </h1>
 

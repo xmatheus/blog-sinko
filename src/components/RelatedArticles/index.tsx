@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 
 import { NewArticle } from '@/cms/strapi/types';
 import { getStrapiImageUrl } from '@/utils/get-strapi-image-url';
-import { getStrapiURL } from '@/utils/get-strapi-url';
 
 interface RelatedArticlesProps {
     articles: NewArticle[];

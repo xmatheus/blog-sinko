@@ -12,7 +12,7 @@ import { Grid } from '@/components/Grid';
 import { PostHeader } from '@/components/PostHeader';
 import { ArticleStructuredData } from '@/components/SEO/MetaTags';
 import { TableOfContents } from '@/components/TableOfContents';
-import { getStrapiURL } from '@/utils/get-strapi-url';
+import { getStrapiImageUrl } from '@/utils/get-strapi-image-url';
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     const post = data[0];
     const imageUrl = post.bannerImage?.img?.url
-        ? `${getStrapiURL()}${post.bannerImage.img.url}`
+        ? `${getStrapiImageUrl(post.bannerImage.img.url)}`
         : 'https://dominio.com/og-image.jpg';
 
     return {
@@ -75,7 +75,7 @@ export default async function DynamicPageRoute({ params }: PageProps) {
         '@type': 'Article',
         headline: post.title,
         description: post.description || post.title,
-        image: post.bannerImage?.img?.url ? `${getStrapiURL()}${post.bannerImage.img.url}` : '',
+        image: post.bannerImage?.img?.url ? `${getStrapiImageUrl(post.bannerImage.img.url)}` : '',
         datePublished: post.publishedAt,
         dateModified: post.updatedAt,
         author: {

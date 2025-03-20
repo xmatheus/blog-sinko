@@ -12,8 +12,8 @@ import '@/styles/font-size.css';
 
 export const metadata: Metadata = {
     title: {
-        default: 'Seu Site - Título Padrão',
-        template: '%s | Seu Site'
+        default: 'SINKO',
+        template: '%s | SINKO'
     },
     description: 'Descrição padrão do seu site',
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://seu-dominio.com'),

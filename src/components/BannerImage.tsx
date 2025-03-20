@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
-import { getStrapiURL } from '@/utils/get-strapi-url';
+import { getStrapiImageUrl } from '@/utils/get-strapi-image-url';
 
 interface BannerImageProps {
     src?: string;
@@ -15,7 +15,7 @@ export function BannerImage({ src, alt, className }: BannerImageProps) {
     return (
         <div className={cn('relative mb-[24px] aspect-video w-full max-w-[745px]', className)}>
             <Image
-                src={`${getStrapiURL()}${src}`}
+                src={getStrapiImageUrl(src)}
                 alt={alt || ''}
                 fill
                 loading='eager'

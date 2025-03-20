@@ -12,9 +12,14 @@ const nextConfig: NextConfig = {
         remotePatterns: [
             {
                 protocol: 'http',
-                hostname: process.env.STRAPI_HOST || 'localhost',
+                hostname: process.env.STRAPI_URL || 'localhost',
                 port: process.env.STRAPI_PORT || '1337',
                 pathname: '/uploads/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'diplomatic-moonlight-0fa07877a9.media.strapiapp.com',
+                pathname: '/**'
             }
         ]
     },
