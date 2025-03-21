@@ -15,7 +15,7 @@ export function Header() {
     };
 
     return (
-        <header className='bg-surface-light w-full border-b border-gray-200 dark:border-gray-800 dark:bg-gray-900'>
+        <header className='bg-surface-light w-full border-b border-gray-200'>
             <Grid>
                 <div className='flex h-16 items-center justify-between'>
                     <div className='flex-shrink-0'>
@@ -61,26 +61,20 @@ export function Header() {
                     </div>
 
                     <nav className='hidden items-center gap-8 md:flex'>
-                        <Link
-                            href='/'
-                            className='text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50'>
+                        <Link href='/' className='text-gray-600 hover:text-gray-900 dark:hover:text-gray-50'>
                             Home
                         </Link>
-                        <Link
-                            href='/categorias'
-                            className='text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50'>
+                        <Link href='/categorias' className='text-gray-600 hover:text-gray-900 dark:hover:text-gray-50'>
                             Categorias
                         </Link>
-                        <Link
-                            href='/noticias'
-                            className='text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50'>
+                        <Link href='/noticias' className='text-gray-600 hover:text-gray-900 dark:hover:text-gray-50'>
                             Notícias
                         </Link>
                     </nav>
 
                     <div className='hidden items-center gap-2 md:flex'>
                         <button
-                            className='bg-primary flex cursor-pointer items-center rounded-full px-4 py-2 transition-colors hover:opacity-80 dark:bg-gray-800 dark:hover:bg-gray-700'
+                            className='bg-primary flex cursor-pointer items-center rounded-full px-4 py-2 transition-colors hover:opacity-80'
                             aria-label='Buscar'>
                             <Search className='mr-2.5 h-5 w-5 text-white dark:text-gray-400' />
                             <span className='text-white dark:text-gray-400'>Buscar</span>

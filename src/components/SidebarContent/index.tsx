@@ -62,7 +62,7 @@ export async function SidebarContent({ title, url, slug }: SidebarContentProps) 
                         href={shareLinks.whatsapp}
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='text-[#BDBDBD] transition-colors hover:text-[#076553]'
+                        className='hover:text-primary text-[#BDBDBD] transition-colors'
                         title='Compartilhar no WhatsApp'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
@@ -77,7 +77,7 @@ export async function SidebarContent({ title, url, slug }: SidebarContentProps) 
                         href={shareLinks.facebook}
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='text-[#BDBDBD] transition-colors hover:text-[#076553]'
+                        className='hover:text-primary text-[#BDBDBD] transition-colors'
                         title='Compartilhar no Facebook'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
@@ -92,7 +92,7 @@ export async function SidebarContent({ title, url, slug }: SidebarContentProps) 
                         href={shareLinks.twitter}
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='text-[#BDBDBD] transition-colors hover:text-[#076553]'
+                        className='hover:text-primary text-[#BDBDBD] transition-colors'
                         title='Compartilhar no X (Twitter)'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
@@ -107,7 +107,7 @@ export async function SidebarContent({ title, url, slug }: SidebarContentProps) 
                         href={shareLinks.linkedin}
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='text-[#BDBDBD] transition-colors hover:text-[#076553]'
+                        className='hover:text-primary text-[#BDBDBD] transition-colors'
                         title='Compartilhar no LinkedIn'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'

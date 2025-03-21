@@ -104,7 +104,7 @@ export default async function DynamicPageRoute({ params }: PageProps) {
                 <div className='flex w-full flex-wrap justify-between'>
                     <main>
                         <article className='flex w-full flex-col gap-8 lg:max-w-[745px]'>
-                            <AutoBreadcrumbs />
+                            <AutoBreadcrumbs title={post.title} />
                             <PostHeader post={post} />
                             <BannerImage src={post.bannerImage?.img?.url} alt={post.bannerImage?.alt} />
                             <FontSizeControl title={post.title} url={currentUrl} />

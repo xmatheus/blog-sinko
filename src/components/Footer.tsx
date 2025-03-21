@@ -45,14 +45,14 @@ export function Footer() {
                         </svg>
                     </div>
                     <small className='base-typography-classes m-0 text-center text-[1rem] leading-[1.75rem] font-[400] lg:text-left xl:text-[1.125rem]'>
-                        © 2025 Konsi.
+                        © 2025 Sinko.
                         <br />
                         Todos os direitos reservados.
                     </small>
 
                     <div className='flex flex-wrap items-center justify-center gap-4 lg:justify-start lg:gap-[11px]'>
                         <a
-                            title='WhatsApp da Konsi'
+                            title='WhatsApp da Sinko'
                             rel='nofollow noreferrer'
                             target='_blank'
                             aria-label='Entre em contato pelo WhatsApp'
@@ -91,11 +91,11 @@ export function Footer() {
                             </svg>
                         </a>
                         <a
-                            title='Instagram da Konsi'
+                            title='Instagram da Sinko'
                             rel='nofollow noreferrer'
                             target='_blank'
                             aria-label='Acesse nosso Instagram'
-                            href='https://www.instagram.com/konsi.app/'>
+                            href='https://www.instagram.com/Sinko.app/'>
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 width='30'
@@ -123,11 +123,11 @@ export function Footer() {
                             </svg>
                         </a>
                         <a
-                            title='Facebook da Konsi'
+                            title='Facebook da Sinko'
                             rel='nofollow noreferrer'
                             target='_blank'
                             aria-label='Acesse nosso Facebook'
-                            href='https://www.facebook.com/aplicativokonsi'>
+                            href='https://www.facebook.com/aplicativoSinko'>
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 width='30'
@@ -142,11 +142,11 @@ export function Footer() {
                             </svg>
                         </a>
                         <a
-                            title='X da Konsi'
+                            title='X da Sinko'
                             rel='nofollow noreferrer'
                             target='_blank'
                             aria-label='Acesse nosso X'
-                            href='https://X.com/KonsiApp/'>
+                            href='https://X.com/SinkoApp/'>
                             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0,0,256,256' width='30px' height='30px'>
                                 <g
                                     fill='#2E8896'
@@ -170,11 +170,11 @@ export function Footer() {
                             </svg>
                         </a>
                         <a
-                            title='LinkedIn da Konsi'
+                            title='LinkedIn da Sinko'
                             rel='nofollow noreferrer'
                             target='_blank'
                             aria-label='Acesse nosso Linkedin'
-                            href='https://www.linkedin.com/company/konsi-app/'>
+                            href='https://www.linkedin.com/company/Sinko-app/'>
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 width='30'
@@ -201,11 +201,11 @@ export function Footer() {
                             </svg>
                         </a>
                         <a
-                            title='YouTube da Konsi'
+                            title='YouTube da Sinko'
                             rel='nofollow noreferrer'
                             target='_blank'
                             aria-label='Acesse nosso YouTube'
-                            href='https://www.youtube.com/@konsiapp'>
+                            href='https://www.youtube.com/@Sinkoapp'>
                             <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 width='30'
@@ -241,7 +241,7 @@ export function Footer() {
                         </p>
                         <ul className='flex list-none flex-col items-center gap-6 lg:items-start'>
                             <li>
-                                <Link title='Página inicial do site Konsi' href='/'>
+                                <Link title='Página inicial do site Sinko' href='/'>
                                     <p className='base-typography-classes text-primary m-0 text-[1rem] leading-[140%] font-[400] underline'>
                                         Home
                                     </p>

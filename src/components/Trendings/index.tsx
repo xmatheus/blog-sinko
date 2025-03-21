@@ -49,7 +49,7 @@ export default async function Trendings() {
     const trendingArticles = await getTrendings();
 
     return (
-        <section className='bg-accent w-full py-11' aria-label='Artigos em alta'>
+        <section className='bg-accent dark:bg-card w-full py-11' aria-label='Artigos em alta'>
             <Grid>
                 {trendingArticles.length > 0 ? (
                     <nav

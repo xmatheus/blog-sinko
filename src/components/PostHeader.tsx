@@ -34,7 +34,7 @@ export function PostHeader({ post }: PostHeaderProps) {
                     <Link
                         href={`/categorias/${post.category.slug}`}
                         className='flex w-fit items-center gap-[4px] rounded-[4px] bg-[#DFF2EF] px-[8px] py-[4px]'>
-                        <p className='m-0 text-[0.875rem] leading-[140%] font-[400] text-[#076553]'>
+                        <p className='text-primary m-0 text-[0.875rem] leading-[140%] font-[400]'>
                             {post.category.name}
                         </p>
                     </Link>

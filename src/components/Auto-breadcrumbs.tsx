@@ -9,6 +9,7 @@ export interface autoBreadcrumbsProps extends React.HTMLProps<HTMLElement> {
     customStyles?: string;
     published?: string;
     author?: string;
+    title?: string;
 }
 
 export interface LinkSettings {
@@ -17,7 +18,7 @@ export interface LinkSettings {
 }
 
 const AutoBreadcrumbs: React.FC<autoBreadcrumbsProps> = async (props) => {
-    const { customStyles, published, author } = props;
+    const { customStyles, published, author, title } = props;
     const heads = await headers();
     const pathname = heads.get('x-pathname');
 
@@ -84,9 +85,9 @@ const AutoBreadcrumbs: React.FC<autoBreadcrumbsProps> = async (props) => {
                                             role='link'
                                             aria-disabled='true'
                                             aria-current='page'
-                                            className='font-normal text-[#076553]'>
+                                            className='text-primary font-normal'>
                                             <p className='base-typography-classes m-0 text-[0.875rem] leading-[140%] font-[400]'>
-                                                {link.text}
+                                                {title}
                                             </p>
                                         </span>
                                         <meta itemProp='position' content={(i + 2).toString()} />

@@ -32,10 +32,10 @@ export default function RelatedArticles({ articles, title = 'Artigos Relacionado
                                 />
                             </div>
                             <div className='flex h-full w-fit flex-col gap-[12px] lg:gap-[20px]'>
-                                <h3 className='!my-0 line-clamp-4 !w-fit max-w-[180px] !text-[18px] leading-[24px] font-[600] text-[#141514] lg:!my-[12px] lg:line-clamp-3 lg:max-w-[232px]'>
+                                <h3 className='!my-0 line-clamp-4 !w-fit max-w-[180px] !text-[18px] leading-[24px] font-[600] lg:!my-[12px] lg:line-clamp-3 lg:max-w-[232px]'>
                                     {article.title}
                                 </h3>
-                                <span className='!text-[14px] !text-[#5E6772]'>
+                                <span className='text-[14px]'>
                                     {new Date(article.publishedAt).toLocaleDateString('pt-BR')} às{' '}
                                     {new Date(article.publishedAt).toLocaleTimeString('pt-BR', {
                                         hour: '2-digit',

@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 
 export default function PostagensLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className={`${inter.className} min-h-screen bg-white`}>
+        <div className={`${inter.className} min-h-screen`}>
             <main className='container mx-auto px-0 py-8 md:px-4'>{children}</main>
         </div>
     );

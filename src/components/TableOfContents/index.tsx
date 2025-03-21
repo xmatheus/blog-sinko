@@ -63,7 +63,7 @@ function extractHeadings(blocks: Block[]): Heading[] {
 }
 
 function HeadingLink({ heading, parentNumber = '' }: { heading: Heading; parentNumber?: string }) {
-    const currentNumber = parentNumber ? `${parentNumber}. ` : '';
+    const currentNumber = parentNumber ? `${parentNumber}.` : '';
 
     return (
         <li className='list-none'>
@@ -71,8 +71,7 @@ function HeadingLink({ heading, parentNumber = '' }: { heading: Heading; parentN
                 title={heading.text}
                 className='focus:ring-primary text-primary transition-colors duration-200 hover:underline focus:ring-2 focus:ring-offset-2 focus:outline-none'
                 href={`#${heading.id}`}>
-                {currentNumber}
-                {heading.text}
+                {currentNumber} {heading.text}
             </a>
             {heading.children && heading.children.length > 0 && (
                 <ol className='mt-2 space-y-2' style={{ marginLeft: `${heading.level * 8}px` }}>

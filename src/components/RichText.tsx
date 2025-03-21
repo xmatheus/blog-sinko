@@ -59,11 +59,11 @@ export function RichText({ content, id }: RichTextProps) {
                             </h4>
                         );
                     },
-                    p: ({ children }) => <p className='mb-4 text-base leading-relaxed text-gray-700'>{children}</p>,
+                    p: ({ children }) => <p className='text-secondary mb-4 text-base leading-relaxed'>{children}</p>,
                     a: ({ href, children }) => (
                         <Link
                             href={href || '#'}
-                            className='text-[#076553] hover:underline'
+                            className='text-primary hover:underline'
                             target={href?.startsWith('http') ? '_blank' : undefined}
                             rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}>
                             {children}
@@ -71,9 +71,9 @@ export function RichText({ content, id }: RichTextProps) {
                     ),
                     ul: ({ children }) => <ul className='mb-4 ml-6 list-disc space-y-2'>{children}</ul>,
                     ol: ({ children }) => <ol className='mb-4 ml-6 list-decimal space-y-2'>{children}</ol>,
-                    li: ({ children }) => <li className='text-base leading-relaxed text-gray-700'>{children}</li>,
+                    li: ({ children }) => <li className='text-secondary text-base leading-relaxed'>{children}</li>,
                     blockquote: ({ children }) => (
-                        <blockquote className='border-l-4 border-[#076553] pt-4 pb-1 pl-4 text-gray-600 italic'>
+                        <blockquote className='border-primary text-secondary border-l-4 pt-4 pb-1 pl-4 italic'>
                             {children}
                         </blockquote>
                     ),
@@ -85,13 +85,13 @@ export function RichText({ content, id }: RichTextProps) {
                     ),
                     table: ({ children }) => (
                         <div className='mb-4 overflow-x-auto'>
-                            <table className='text-foreground min-w-full border-collapse border border-[#E8E8E8] text-sm'>
+                            <table className='text-foreground min-w-full border-collapse border-none border-[#E8E8E8] text-sm'>
                                 {children}
                             </table>
                         </div>
                     ),
                     th: ({ children }) => (
-                        <th className='bg-primary text-primary-foreground border-none px-4 py-2 text-left font-semibold first:rounded-l-[8px] last:rounded-r-[8px]'>
+                        <th className='bg-primary text-primary-foreground first:border-l-primary last:border-r-primary border-none px-4 py-2 text-left font-semibold first:rounded-tl-[8px] last:rounded-tr-[8px]'>
                             {children}
                         </th>
                     ),
