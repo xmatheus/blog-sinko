@@ -52,7 +52,9 @@ export default async function Trendings() {
         <section className='bg-accent w-full py-11' aria-label='Artigos em alta'>
             <Grid>
                 {trendingArticles.length > 0 ? (
-                    <nav className='flex w-full overflow-x-auto' aria-label='Lista de artigos em alta'>
+                    <nav
+                        className='flex w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+                        aria-label='Lista de artigos em alta'>
                         <div className='flex w-full justify-between gap-3'>
                             {trendingArticles.map((article) => (
                                 <TrendingArticleCard key={article.id} article={article} />

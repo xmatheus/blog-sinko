@@ -1,8 +1,8 @@
 {
-    "name": "nextjs-15-starter-shadcn",
+    "name": "sinko-blog",
     "version": "1.0.0",
     "private": false,
-    "website": "https://nextjs-15-starter-shadcn.vercel.app/",
+    "website": "https://blog-sinko.vercel.app/",
     "license": "MIT",
     "scripts": {
         "dev": "next dev --turbopack",
@@ -14,6 +14,7 @@
     },
     "dependencies": {
         "@radix-ui/react-slot": "^1.1.2",
+        "@vercel/og": "^0.6.5",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "date-fns": "^4.1.0",

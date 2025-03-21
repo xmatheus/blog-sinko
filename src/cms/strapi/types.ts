@@ -39,6 +39,7 @@ export interface NewArticle {
     title: string;
     description: string;
     content: string;
+    articlePublishedAt: string;
     publishedAt: string;
     updatedAt: string;
     slug: string;

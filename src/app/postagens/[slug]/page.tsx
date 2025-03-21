@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getPageBySlug } from '@/cms/strapi/config';
+import { getPageBySlug, getRelatedArticles } from '@/cms/strapi/config';
 import { NewArticle } from '@/cms/strapi/types';
 import { ArticleTags } from '@/components/ArticleTags';
 import AutoBreadcrumbs from '@/components/Auto-breadcrumbs';
@@ -11,6 +11,7 @@ import { FontSizeControl } from '@/components/FontSizeControl';
 import { Grid } from '@/components/Grid';
 import { PostHeader } from '@/components/PostHeader';
 import { ArticleStructuredData } from '@/components/SEO/MetaTags';
+import { SidebarContent } from '@/components/SidebarContent';
 import { TableOfContents } from '@/components/TableOfContents';
 import { getStrapiImageUrl } from '@/utils/get-strapi-image-url';
 
@@ -30,9 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     const post = data[0];
-    const imageUrl = post.bannerImage?.img?.url
-        ? `${getStrapiImageUrl(post.bannerImage.img.url)}`
-        : 'https://dominio.com/og-image.jpg';
+    const imageUrl = `/api/og?title=${post.title}`;
 
     return {
         title: post.title,
@@ -59,11 +58,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 async function loader(slug: string): Promise<{ post: NewArticle }> {
-    const response = await getPageBySlug(slug);
+    const [postResponse] = await Promise.all([getPageBySlug(slug)]);
 
-    if (response.data.length === 0) notFound();
+    if (postResponse.data.length === 0) notFound();
 
-    return { post: response.data[0] };
+    return {
+        post: postResponse.data[0]
+    };
 }
 
 export default async function DynamicPageRoute({ params }: PageProps) {
@@ -100,17 +101,22 @@ export default async function DynamicPageRoute({ params }: PageProps) {
                 }}
             />
             <Grid>
-                <article className='container flex w-full flex-col gap-8 lg:max-w-[745px]'>
-                    <AutoBreadcrumbs />
-                    <PostHeader post={post} />
-                    <BannerImage src={post.bannerImage?.img?.url} alt={post.bannerImage?.alt} />
-                    <FontSizeControl title={post.title} url={currentUrl} />
-                    <TableOfContents content={post.blocks || []} />
-                    <div className='article-content'>
-                        <BlockRenderer blocks={post.blocks || []} slug={resolvedParams.slug} />
-                    </div>
-                    <ArticleTags post={post} />
-                </article>
+                <div className='flex w-full flex-wrap justify-between'>
+                    <main>
+                        <article className='flex w-full flex-col gap-8 lg:max-w-[745px]'>
+                            <AutoBreadcrumbs />
+                            <PostHeader post={post} />
+                            <BannerImage src={post.bannerImage?.img?.url} alt={post.bannerImage?.alt} />
+                            <FontSizeControl title={post.title} url={currentUrl} />
+                            <TableOfContents content={post.blocks || []} />
+                            <div className='article-content'>
+                                <BlockRenderer blocks={post.blocks || []} slug={resolvedParams.slug} />
+                            </div>
+                            <ArticleTags post={post} />
+                        </article>
+                    </main>
+                    <SidebarContent title={post.title} url={currentUrl} slug={resolvedParams.slug} />
+                </div>
             </Grid>
         </>
     );

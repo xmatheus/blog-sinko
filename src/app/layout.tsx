@@ -8,45 +8,11 @@ import { ThemeProvider } from 'next-themes';
 import '@/app/globals.css';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { OrganizationSchemaMetadata } from '@/components/Metadata';
+import { defaultMetadata } from '@/config/metadata';
 import '@/styles/font-size.css';
 
-export const metadata: Metadata = {
-    title: {
-        default: 'SINKO',
-        template: '%s | SINKO'
-    },
-    description: 'Descrição padrão do seu site',
-    metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://seu-dominio.com'),
-    openGraph: {
-        type: 'website',
-        locale: 'pt_BR',
-        siteName: 'Seu Site',
-        images: [
-            {
-                url: '/og-image.jpg',
-                width: 1200,
-                height: 630,
-                alt: 'Seu Site'
-            }
-        ]
-    },
-    twitter: {
-        card: 'summary_large_image',
-        site: '@seusite',
-        creator: '@seusite'
-    },
-    robots: {
-        index: true,
-        follow: true,
-        googleBot: {
-            index: true,
-            follow: true,
-            'max-video-preview': -1,
-            'max-image-preview': 'large',
-            'max-snippet': -1
-        }
-    }
-};
+export const metadata: Metadata = defaultMetadata;
 
 const poppins = localFont({
     src: [
@@ -76,6 +42,9 @@ const poppins = localFont({
 const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {
     return (
         <html suppressHydrationWarning lang='pt-br'>
+            <head>
+                <OrganizationSchemaMetadata />
+            </head>
             <body className={`${poppins.className} bg-background text-foreground antialiased`}>
                 <ThemeProvider attribute='class' enableSystem>
                     <Header />

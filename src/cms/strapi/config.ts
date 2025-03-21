@@ -1,3 +1,5 @@
+import { unstable_cache } from 'next/cache';
+
 import { fetchAPI } from '@/utils/fetch-api';
 import { getStrapiURL } from '@/utils/get-strapi-url';
 
@@ -5,6 +7,10 @@ import { LastNewsResponse, MostReadResponse, NewArticle, Tag, TrendingsResponse 
 import qs from 'qs';
 
 const BASE_URL = getStrapiURL();
+
+const CACHE_1H = 60 * 60;
+
+const CACHE_5M = 60 * 5;
 
 const trendingsQuery = qs.stringify({
     populate: {
@@ -18,18 +24,26 @@ const trendingsQuery = qs.stringify({
     }
 });
 
-const mostReadQuery = qs.stringify({
-    populate: {
-        new_articles: {
-            populate: {
-                bannerImage: {
-                    populate: ['img']
+const mostReadQuery = (excludeSlug?: string) =>
+    qs.stringify({
+        populate: {
+            new_articles: {
+                populate: {
+                    bannerImage: {
+                        populate: ['img']
+                    },
+                    tags: true
                 },
-                tags: true
+                ...(excludeSlug && {
+                    filters: {
+                        slug: {
+                            $ne: excludeSlug
+                        }
+                    }
+                })
             }
         }
-    }
-});
+    });
 
 const lastNewsQuery = qs.stringify({
     populate: {
@@ -107,67 +121,99 @@ const relatedArticlesQuery = (slug: string) =>
         }
     });
 
-export async function getTrendings(): Promise<NewArticle[]> {
-    const path = '/api/trendings';
-    const url = new URL(path, BASE_URL);
-    url.search = trendingsQuery;
+export const getTrendings = unstable_cache(
+    async (): Promise<NewArticle[]> => {
+        const path = '/api/trendings';
+        const url = new URL(path, BASE_URL);
+        url.search = trendingsQuery;
 
-    try {
-        const response: TrendingsResponse = await fetchAPI(url.href, {
-            method: 'GET',
-            authToken: process.env.STRAPI_TOKEN
-        });
+        try {
+            const response: TrendingsResponse = await fetchAPI(url.href, {
+                method: 'GET',
+                authToken: process.env.STRAPI_TOKEN
+            });
 
-        if (!response?.data?.[0]?.new_articles) {
+            if (!response?.data?.[0]?.new_articles) {
+                return [];
+            }
+
+            return response.data[0].new_articles;
+        } catch (error) {
+            console.error('Error fetching trendings:', error);
+
             return [];
         }
+    },
+    ['trendings'],
+    { revalidate: CACHE_5M }
+);
 
-        return response.data[0].new_articles;
-    } catch (error) {
-        console.error('Error fetching trendings:', error);
+export const getMostRead = unstable_cache(
+    async (excludeSlug?: string): Promise<MostReadResponse> => {
+        const path = '/api/home-most-reads';
+        const url = new URL(path, BASE_URL);
+        url.search = mostReadQuery(excludeSlug);
 
-        return [];
-    }
-}
+        try {
+            const response = await fetchAPI(url.href, {
+                method: 'GET',
+                authToken: process.env.STRAPI_TOKEN
+            });
 
-export async function getMostRead(): Promise<MostReadResponse> {
-    const path = '/api/home-most-reads';
-    const url = new URL(path, BASE_URL);
-    url.search = mostReadQuery;
+            if (!response?.data?.[0]) {
+                return {
+                    title: '',
+                    new_articles: []
+                };
+            }
 
-    try {
-        const response = await fetchAPI(url.href, { method: 'GET', authToken: process.env.STRAPI_TOKEN });
+            return {
+                title: response.data[0].title,
+                new_articles: response.data[0].new_articles || []
+            };
+        } catch (error) {
+            console.error('Error fetching most read:', error);
 
-        if (!response?.data?.[0]) {
             return {
                 title: '',
                 new_articles: []
             };
         }
+    },
+    ['most-read'],
+    { revalidate: CACHE_1H }
+);
 
-        return {
-            title: response.data[0].title,
-            new_articles: response.data[0].new_articles || []
-        };
-    } catch (error) {
-        console.error('Error fetching most read:', error);
+export const getLastNews = unstable_cache(
+    async (): Promise<LastNewsResponse> => {
+        const path = '/api/new-articles';
+        const url = new URL(path, BASE_URL);
+        url.search = lastNewsQuery;
 
-        return {
-            title: '',
-            new_articles: []
-        };
-    }
-}
+        try {
+            const response = await fetchAPI(url.href, {
+                method: 'GET',
+                authToken: process.env.STRAPI_TOKEN
+            });
 
-export async function getLastNews(): Promise<LastNewsResponse> {
-    const path = '/api/new-articles';
-    const url = new URL(path, BASE_URL);
-    url.search = lastNewsQuery;
+            if (!response?.data) {
+                return {
+                    data: [],
+                    meta: {
+                        pagination: {
+                            page: 1,
+                            pageSize: 0,
+                            pageCount: 0,
+                            total: 0
+                        }
+                    }
+                };
+            }
 
-    try {
-        const response = await fetchAPI(url.href, { method: 'GET', authToken: process.env.STRAPI_TOKEN });
+            return response;
+        } catch (error) {
+            console.error('Error fetching last news:', error);
 
-        if (!response?.data) {
             return {
                 data: [],
                 meta: {
@@ -180,70 +226,81 @@ export async function getLastNews(): Promise<LastNewsResponse> {
                 }
             };
         }
+    },
+    ['last-news'],
+    { revalidate: CACHE_5M }
+);
 
-        return response;
-    } catch (error) {
-        console.error('Error fetching last news:', error);
+export const getTrendingsTag = unstable_cache(
+    async (): Promise<Tag[]> => {
+        const path = '/api/home-trending-tags';
+        const url = new URL(path, BASE_URL);
+        url.search = trendingsTagQuery;
 
-        return {
-            data: [],
-            meta: {
-                pagination: {
-                    page: 1,
-                    pageSize: 0,
-                    pageCount: 0,
-                    total: 0
-                }
+        try {
+            const response = await fetchAPI(url.href, {
+                method: 'GET',
+                authToken: process.env.STRAPI_TOKEN
+            });
+
+            if (!response?.data?.[0]?.tags) {
+                return [];
             }
-        };
-    }
-}
 
-export async function getTrendingsTag(): Promise<Tag[]> {
-    const path = '/api/home-trending-tags';
-    const url = new URL(path, BASE_URL);
-    url.search = trendingsTagQuery;
+            return response.data[0].tags;
+        } catch (error) {
+            console.error('Error fetching trending tags:', error);
 
-    try {
+            return [];
+        }
+    },
+    ['trending-tags'],
+    { revalidate: CACHE_1H }
+);
+
+export const getAllPages = unstable_cache(
+    async (): Promise<NewArticle[]> => {
+        const path = '/api/new-articles';
+        const url = new URL(path, BASE_URL);
+        url.search = pageQuery();
+
         const response = await fetchAPI(url.href, {
             method: 'GET',
             authToken: process.env.STRAPI_TOKEN
         });
 
-        if (!response?.data?.[0]?.tags) {
-            return [];
-        }
+        return response.data;
+    },
+    ['all-pages'],
+    { revalidate: CACHE_1H }
+);
 
-        return response.data[0].tags;
-    } catch (error) {
-        console.error('Error fetching trending tags:', error);
+export const getPageBySlug = unstable_cache(
+    async (slug: string) => {
+        const path = '/api/new-articles';
+        const url = new URL(path, BASE_URL);
+        url.search = pageBySlugQuery(slug);
 
-        return [];
-    }
-}
+        return await fetchAPI(url.href, {
+            method: 'GET',
+            authToken: process.env.STRAPI_TOKEN
+        });
+    },
+    ['page-by-slug'],
+    { revalidate: CACHE_1H }
+);
 
-export async function getAllPages(): Promise<NewArticle[]> {
-    const path = '/api/new-articles';
-    const url = new URL(path, BASE_URL);
-    url.search = pageQuery();
+export const getRelatedArticles = unstable_cache(
+    async (slug: string) => {
+        const path = '/api/new-articles';
+        const url = new URL(path, BASE_URL);
+        url.search = relatedArticlesQuery(slug);
 
-    const response = await fetchAPI(url.href, { method: 'GET', authToken: process.env.STRAPI_TOKEN });
-
-    return response.data;
-}
-
-export async function getPageBySlug(slug: string) {
-    const path = '/api/new-articles';
-    const url = new URL(path, BASE_URL);
-    url.search = pageBySlugQuery(slug);
-
-    return await fetchAPI(url.href, { method: 'GET', authToken: process.env.STRAPI_TOKEN });
-}
-
-export async function getRelatedArticles(slug: string) {
-    const path = '/api/new-articles';
-    const url = new URL(path, BASE_URL);
-    url.search = relatedArticlesQuery(slug);
-
-    return await fetchAPI(url.href, { method: 'GET', authToken: process.env.STRAPI_TOKEN });
-}
+        return await fetchAPI(url.href, {
+            method: 'GET',
+            authToken: process.env.STRAPI_TOKEN
+        });
+    },
+    ['related-articles'],
+    { revalidate: CACHE_1H }
+);

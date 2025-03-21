@@ -16,47 +16,6 @@ interface MetaTagsProps {
     };
 }
 
-export const generateMetadata = ({ title, description, canonical, ogImage, article }: MetaTagsProps): Metadata => {
-    const siteUrl = process.env.NEXT_PUBLIC_URL || 'https://seu-dominio.com';
-    const defaultImage = `${siteUrl}/og-image.jpg`;
-
-    return {
-        title,
-        description,
-        metadataBase: new URL(siteUrl),
-        alternates: {
-            canonical: canonical || siteUrl
-        },
-        openGraph: {
-            title,
-            description,
-            url: canonical || siteUrl,
-            siteName: 'Seu Site',
-            images: [
-                {
-                    url: ogImage || defaultImage,
-                    width: 1200,
-                    height: 630,
-                    alt: title
-                }
-            ],
-            type: article ? 'article' : 'website',
-            ...(article && {
-                publishedTime: article.publishedTime,
-                modifiedTime: article.modifiedTime,
-                authors: article.authors,
-                tags: article.tags
-            })
-        },
-        twitter: {
-            card: 'summary_large_image',
-            title,
-            description,
-            images: [ogImage || defaultImage]
-        }
-    };
-};
-
 export const ArticleStructuredData = ({ article }: { article: MetaTagsProps['article'] }) => {
     if (!article) return null;
 

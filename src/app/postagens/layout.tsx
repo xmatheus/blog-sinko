@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         siteName: 'Blog',
         images: [
             {
-                url: process.env.NEXT_PUBLIC_URL + '/og-image.jpg',
+                url: '/api/og?title=Blog com as últimas notícias e artigos',
                 width: 1200,
                 height: 630,
                 alt: 'Blog'
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Blog',
         description: 'Blog com as últimas notícias e artigos',
-        images: [process.env.NEXT_PUBLIC_URL + '/og-image.jpg']
+        images: ['/api/og?title=Blog com as últimas notícias e artigos']
     },
     robots: {
         index: true,

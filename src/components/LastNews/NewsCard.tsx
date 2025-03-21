@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -13,15 +11,15 @@ interface NewsCardProps {
 }
 
 export const NewsCard = ({ article }: NewsCardProps) => {
-    const formattedDate = new Date(article.publishedAt)
-        .toLocaleString('pt-BR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-        })
+    const formattedDate = new Intl.DateTimeFormat('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    })
+        .format(new Date(article.publishedAt))
         .replace(',', ' às');
 
     return (

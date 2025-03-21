@@ -1,5 +1,3 @@
-'use client';
-
 import { NewArticle } from '@/cms/strapi/types';
 
 import { Grid } from '../Grid';

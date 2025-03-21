@@ -2,7 +2,7 @@
 
 export function ScrollToTop() {
     return (
-        <div className='flex w-full flex-col items-center gap-[24px] lg:w-fit'>
+        <div className='flex w-full flex-col items-center gap-[24px] md:w-fit'>
             <div
                 title='Voltar ao topo do site'
                 className='gap-xsmall order-last flex flex-col items-center self-center md:self-start xl:order-none'>

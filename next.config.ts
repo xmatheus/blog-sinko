@@ -8,25 +8,53 @@ const withBundleAnalyzer = initializeBundleAnalyzer({
 
 const nextConfig: NextConfig = {
     output: 'standalone',
+    outputFileTracingIncludes: {
+        '/*': ['./registry/**/*']
+    },
     images: {
         remotePatterns: [
             {
                 protocol: 'http',
                 hostname: process.env.STRAPI_URL || 'localhost',
-                port: process.env.STRAPI_PORT || '1337',
+                pathname: '/uploads/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'diplomatic-moonlight-0fa07877a9.strapiapp.com',
+                pathname: '/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'diplomatic-moonlight-0fa07877a9.strapiapp.com',
                 pathname: '/uploads/**'
             },
             {
                 protocol: 'https',
                 hostname: 'diplomatic-moonlight-0fa07877a9.media.strapiapp.com',
                 pathname: '/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'diplomatic-moonlight-0fa07877a9.media.strapiapp.com',
+                pathname: '/uploads/**'
+            },
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '1337',
+                pathname: '/uploads/**'
             }
         ]
     },
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production'
     },
-    poweredByHeader: false
+    poweredByHeader: false,
+    experimental: {
+        turbo: {
+            resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json']
+        }
+    }
 };
 
 export default withBundleAnalyzer(nextConfig);

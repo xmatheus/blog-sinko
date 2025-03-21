@@ -39,12 +39,14 @@ export const Carousel = ({ articles }: CarouselProps) => {
         if (!containerRef.current) return;
 
         const container = containerRef.current;
-        const cardWidth = 732;
-        const gap = 16;
-        const scrollPosition = index * (cardWidth + gap);
+        const cards = container.querySelectorAll('[role="listitem"]');
+        if (!cards.length) return;
+
+        const cardElement = cards[index] as HTMLElement;
+        const scrollLeft = cardElement.offsetLeft;
 
         container.scrollTo({
-            left: scrollPosition,
+            left: scrollLeft,
             behavior: 'smooth'
         });
 
@@ -63,14 +65,46 @@ export const Carousel = ({ articles }: CarouselProps) => {
         }
     };
 
+    const handleScroll = () => {
+        if (!containerRef.current) return;
+
+        const container = containerRef.current;
+        const scrollPosition = container.scrollLeft;
+        const cards = container.querySelectorAll('[role="listitem"]');
+
+        let closestIndex = 0;
+        let minDistance = Infinity;
+
+        cards.forEach((card, index) => {
+            const cardElement = card as HTMLElement;
+            const distance = Math.abs(cardElement.offsetLeft - scrollPosition);
+
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestIndex = index;
+            }
+        });
+
+        setCurrentIndex(closestIndex);
+    };
+
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        container.addEventListener('scroll', handleScroll);
+
+        return () => container.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
         <div className='relative'>
             <div
                 ref={containerRef}
                 className='scroll-snap-type-x mandatory overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'>
-                <div className='flex gap-4 transition-transform duration-300' role='list'>
+                <div className='flex gap-4 px-4 transition-transform duration-300' role='list'>
                     {articles.map((article) => (
-                        <div key={article.id} role='listitem' className='scroll-snap-center'>
+                        <div key={article.id} role='listitem' className='scroll-snap-align-start flex-shrink-0'>
                             <NewsCard article={article} />
                         </div>
                     ))}

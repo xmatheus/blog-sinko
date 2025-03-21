@@ -49,8 +49,8 @@ export function PostHeader({ post }: PostHeaderProps) {
 
             <div className='flex flex-wrap items-center gap-[12px]'>
                 <p className='m-0 text-[0.875rem] leading-[140%] font-[400]'>
-                    Publicado em {new Date(post.publishedAt).toLocaleDateString('pt-BR')} às{' '}
-                    {new Date(post.publishedAt).toLocaleTimeString('pt-BR', {
+                    Publicado em {new Date(post.articlePublishedAt).toLocaleDateString('pt-BR')} às{' '}
+                    {new Date(post.articlePublishedAt).toLocaleTimeString('pt-BR', {
                         hour: '2-digit',
                         minute: '2-digit'
                     })}
