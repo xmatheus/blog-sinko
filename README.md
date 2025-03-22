@@ -42,7 +42,7 @@ yarn install
 
 3. Configure as variáveis de ambiente:
    - Copie o arquivo `.env.example` para `.env`
-   - Preencha as variáveis necessárias
+   - Preencha as variáveis necessárias ou use a read-only já disponivel
 
 ## 🚀 Executando o projeto
 
