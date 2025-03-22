@@ -23,16 +23,13 @@ export const NewsCard = ({ article }: NewsCardProps) => {
         .replace(',', ' às');
 
     return (
-        <article
-            className='relative mx-auto flex h-[533px] w-[342px] overflow-hidden rounded-[8px] xl:h-[465px] xl:w-[732px] xl:items-center xl:justify-center'
-            itemScope
-            itemType='https://schema.org/NewsArticle'>
+        <article className='relative mx-auto flex h-[533px] w-[342px] overflow-hidden rounded-[8px] xl:h-[465px] xl:w-[732px] xl:items-center xl:justify-center'>
             <Link
                 href={`/postagens/${article.slug}`}
                 className='group relative h-full w-full'
                 title={article.title}
                 aria-label={`Ler notícia: ${article.title}`}>
-                <figure className='relative h-full w-full' itemType='https://schema.org/ImageObject'>
+                <figure className='relative h-full w-full'>
                     <Image
                         src={getStrapiImageUrl(article.bannerImage?.img?.url || '')}
                         alt={article.bannerImage?.alt || ''}
@@ -41,9 +38,7 @@ export const NewsCard = ({ article }: NewsCardProps) => {
                         sizes='(min-width: 1280px) 732px, 342px'
                         className='object-cover transition-transform duration-300 group-hover:scale-110'
                     />
-                    <figcaption className='sr-only' itemProp='caption'>
-                        {article.bannerImage?.alt}
-                    </figcaption>
+                    <figcaption className='sr-only'>{article.bannerImage?.alt}</figcaption>
                 </figure>
 
                 <div

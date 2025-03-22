@@ -10,6 +10,7 @@ import { BlockRenderer } from '@/components/BlockRenderer';
 import { FontSizeControl } from '@/components/FontSizeControl';
 import { Grid } from '@/components/Grid';
 import { PostHeader } from '@/components/PostHeader';
+import { BlogPostingSchema } from '@/components/SEO/BlogPostingSchema';
 import { ArticleStructuredData } from '@/components/SEO/MetaTags';
 import { SidebarContent } from '@/components/SidebarContent';
 import { TableOfContents } from '@/components/TableOfContents';
@@ -83,6 +84,18 @@ export default async function DynamicPageRoute({ params }: PageProps) {
                     modifiedTime: post.updatedAt,
                     authors: [post.author?.name || ''],
                     tags: post.tags?.map((tag) => tag.title) || []
+                }}
+            />
+            <BlogPostingSchema
+                article={{
+                    title: post.title,
+                    description: post.description,
+                    ogImage: `/api/og?title=${post.title}`,
+                    publishedTime: post.articlePublishedAt,
+                    modifiedTime: post.updatedAt,
+                    authors: [post.author?.name || ''],
+                    tags: post.tags?.map((tag) => tag.title) || [],
+                    url: currentUrl
                 }}
             />
             <Grid>
