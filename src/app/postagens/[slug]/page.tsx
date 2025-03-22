@@ -71,30 +71,15 @@ export default async function DynamicPageRoute({ params }: PageProps) {
     const resolvedParams = await params;
     const { post } = await loader(resolvedParams.slug);
 
-    const jsonLd = {
-        '@context': 'https://schema.org',
-        '@type': 'Article',
-        headline: post.title,
-        description: post.description || post.title,
-        image: post.bannerImage?.img?.url ? `${getStrapiImageUrl(post.bannerImage.img.url)}` : '',
-        datePublished: post.publishedAt,
-        dateModified: post.updatedAt,
-        author: {
-            '@type': 'Organization',
-            name: post.author?.name
-        }
-    };
-
     const currentUrl = `${process.env.NEXT_PUBLIC_URL}/postagens/${resolvedParams.slug}`;
 
     return (
         <>
-            <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
             <ArticleStructuredData
                 article={{
                     title: post.title,
-                    ogImage: post.bannerImage?.img?.url,
-                    publishedTime: post.publishedAt,
+                    ogImage: `/api/og?title=${post.title}`,
+                    publishedTime: post.articlePublishedAt,
                     modifiedTime: post.updatedAt,
                     authors: [post.author?.name || ''],
                     tags: post.tags?.map((tag) => tag.title) || []
