@@ -121,6 +121,13 @@ const relatedArticlesQuery = (slug: string) =>
         }
     });
 
+const allSlugsQuery = qs.stringify({
+    fields: ['slug'],
+    pagination: {
+        pageSize: 100
+    }
+});
+
 export const getTrendings = unstable_cache(
     async (): Promise<NewArticle[]> => {
         const path = '/api/trendings';
@@ -302,5 +309,32 @@ export const getRelatedArticles = unstable_cache(
         });
     },
     ['related-articles'],
+    { revalidate: CACHE_1H }
+);
+
+export const getAllArticleSlugs = unstable_cache(
+    async () => {
+        const path = '/api/new-articles';
+        const url = new URL(path, BASE_URL);
+        url.search = allSlugsQuery;
+
+        try {
+            const response = await fetchAPI(url.href, {
+                method: 'GET',
+                authToken: process.env.STRAPI_TOKEN
+            });
+
+            if (!response?.data) {
+                return [];
+            }
+
+            return response.data.map((article: { slug: string }) => article.slug);
+        } catch (error) {
+            console.error('Error fetching all article slugs:', error);
+
+            return [];
+        }
+    },
+    ['all-article-slugs'],
     { revalidate: CACHE_1H }
 );

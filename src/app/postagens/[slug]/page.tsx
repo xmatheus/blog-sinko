@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getPageBySlug, getRelatedArticles } from '@/cms/strapi/config';
+import { getAllArticleSlugs, getPageBySlug } from '@/cms/strapi/config';
 import { NewArticle } from '@/cms/strapi/types';
 import { ArticleTags } from '@/components/ArticleTags';
 import AutoBreadcrumbs from '@/components/Auto-breadcrumbs';
@@ -14,10 +14,17 @@ import { BlogPostingSchema } from '@/components/SEO/BlogPostingSchema';
 import { ArticleStructuredData } from '@/components/SEO/MetaTags';
 import { SidebarContent } from '@/components/SidebarContent';
 import { TableOfContents } from '@/components/TableOfContents';
-import { getStrapiImageUrl } from '@/utils/get-strapi-image-url';
 
 interface PageProps {
     params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+    const slugs: NewArticle[] = await getAllArticleSlugs();
+
+    return slugs.map((slug) => ({
+        slug
+    }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
